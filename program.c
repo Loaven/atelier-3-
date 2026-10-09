@@ -2,10 +2,26 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
+
+// Déclarations (prototypes)
 void afficher_bilan(int scoreJoueur, int scoreOrdi);
 
-int main(void)
-{
+
+// Définition de la procédure afficher_bilan
+void afficher_bilan(int scoreJoueur, int scoreOrdi) {
+    printf("=== FIN DE LA PARTIE ===\n");
+    printf("Score final -> Vous : %d | Ordi : %d\n", scoreJoueur, scoreOrdi);
+
+    if (scoreJoueur > scoreOrdi) {
+        printf("Bravo, vous avez gagné la partie !\n");
+    } else if (scoreOrdi > scoreJoueur) {
+        printf("L'ordinateur remporte la partie...\n");
+    } else {
+        printf("Match nul parfait !\n");
+    }
+}
+
+int main(void) {
     int scoreJoueur = 0;
     int scoreOrdi = 0;
 
@@ -15,20 +31,20 @@ int main(void)
 
     printf("=== PIERRE, FEUILLE, CISEAUX, LEZARD, SPOCK (7 Manches / avantage décisif de 2) ===\n");
 
-    while (manche <= 7
-           && scoreJoueur - scoreOrdi < 2
-           && scoreOrdi - scoreJoueur < 2)
+    while (manche <= 7 
+           && scoreJoueur - scoreOrdi < 2 
+           && scoreOrdi - scoreJoueur < 2) 
     {
         printf("--- Manche %d/7 ---\n", manche);
 
         // Saisie du joueur
         bool incorrect;
 
-        do
-        {
-            printf("Choix (1 = Pierre, 2 = Feuille, 3 = Ciseaux, 4 = Lézard, 5 =Spock) :");
+        do {
+            printf("Choix (1 = Pierre, 2 = Feuille, 3 = Ciseaux, 4 = Lézard, 5 = Spock) :");
             scanf("%d", &choixJoueur);
             incorrect = choixJoueur < 1 || 5 < choixJoueur;
+
             if (incorrect) {
                 printf("Non valide, valeurs de 1 à 5 acceptées\n");
             }
@@ -39,21 +55,19 @@ int main(void)
         printf("L'ordinateur a choisi : %d\n", choixOrdi);
 
         // Détermination du gagnant de la manche
-        if (choixJoueur == choixOrdi)
-        {
+        if (choixJoueur == choixOrdi) {
             printf("Égalité !\n");
-        }
+        } 
         else if ((choixJoueur == 1 && (choixOrdi == 3 || choixOrdi == 4)) ||
                  (choixJoueur == 2 && (choixOrdi == 1 || choixOrdi == 5)) ||
                  (choixJoueur == 3 && (choixOrdi == 2 || choixOrdi == 4)) ||
                  (choixJoueur == 4 && (choixOrdi == 2 || choixOrdi == 5)) ||
-                 (choixJoueur == 5 && (choixOrdi == 1 || choixOrdi == 3)))
+                 (choixJoueur == 5 && (choixOrdi == 1 || choixOrdi == 3))) 
         {
             printf("Vous gagnez cette manche !\n");
             scoreJoueur = scoreJoueur + 1;
-        }
-        else
-        {
+        } 
+        else {
             printf("L'ordinateur gagne cette manche !\n");
             scoreOrdi = scoreOrdi + 1;
         }
@@ -62,26 +76,8 @@ int main(void)
         manche = manche + 1;
     }
 
+    // Appel de la procédure pour afficher le bilan
     afficher_bilan(scoreJoueur, scoreOrdi);
 
-    if (scoreJoueur > scoreOrdi)
-    {
-        printf("Bravo, vous avez gagné la partie !\n");
-    }
-    else if (scoreOrdi > scoreJoueur)
-    {
-        printf("L'ordinateur remporte la partie...\n");
-    }
-    else
-    {
-        printf("Match nul parfait !\n");
-    }
-
     return 0;
-}
-
-void afficher_bilan(int scoreJoueur, int scoreOrdi)
-{
-    printf("=== FIN DE LA PARTIE ===\n");
-    printf("Score final -> Vous : %d | Ordi : %d\n", scoreJoueur, scoreOrdi);
 }
