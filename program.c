@@ -2,10 +2,29 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-
-// Déclarations (prototypes)
-void afficher_bilan(int scoreJoueur, int scoreOrdi);
-
+// Procédure pour afficher le texte correspondant au choix
+void afficher_choix(int choix) {
+    switch (choix) {
+        case 1:
+            printf("Pierre");
+            break;
+        case 2:
+            printf("Feuille");
+            break;
+        case 3:
+            printf("Ciseaux");
+            break;
+        case 4:
+            printf("Lézard");
+            break;
+        case 5:
+            printf("Spock");
+            break;
+        default:
+            printf("Inconnu");
+            break;
+    }
+}
 
 // Définition de la procédure afficher_bilan
 void afficher_bilan(int scoreJoueur, int scoreOrdi) {
@@ -41,7 +60,15 @@ int main(void) {
         bool incorrect;
 
         do {
-            printf("Choix (1 = Pierre, 2 = Feuille, 3 = Ciseaux, 4 = Lézard, 5 = Spock) :");
+          // Affichage du menu avec la boucle for (de 1 à 5)
+            printf("Choix (");
+            for (int i = 1; i <= 5; i++) {
+                printf("%d = ", i);
+                afficher_choix(i);
+                if (i < 5) printf(", ");
+            }
+            printf(") : ");
+
             scanf("%d", &choixJoueur);
             incorrect = choixJoueur < 1 || 5 < choixJoueur;
 
@@ -52,7 +79,12 @@ int main(void) {
 
         // Choix aléatoire de l'ordinateur (1, 2, 3, 4 ou 5)
         choixOrdi = (rand() % 5) + 1;
-        printf("L'ordinateur a choisi : %d\n", choixOrdi);
+
+        // Affichage du choix de l'ordinateur via la procédure
+        printf("L'ordinateur a choisi : ");
+        afficher_choix(choixOrdi);
+        printf("\n");
+
 
         // Détermination du gagnant de la manche
         if (choixJoueur == choixOrdi) {
@@ -75,7 +107,6 @@ int main(void) {
         printf("Score actuel -> Vous : %d | Ordi : %d\n\n", scoreJoueur, scoreOrdi);
         manche = manche + 1;
     }
-
     // Appel de la procédure pour afficher le bilan
     afficher_bilan(scoreJoueur, scoreOrdi);
 
